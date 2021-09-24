@@ -29,10 +29,20 @@ export const GameReducer = (state: State, action: Action) => {
       return {
         ...state,
         tiles: {
+          ...state.tiles,
           [action.tile.id]: action.tile,
         },
         byIds: [...state.byIds, action.tile.id],
         hasChanged: false,
+      };
+    case "UPDATE_TILE":
+      return {
+        ...state,
+        tiles: {
+          ...state.tiles,
+          [action.tile.id]: action.tile,
+        },
+        hasChanged: true,
       };
     case "MERGE_TILE":
       const {
@@ -51,7 +61,7 @@ export const GameReducer = (state: State, action: Action) => {
           },
         },
         byIds: state.byIds.filter((id) => id !== action.source.id),
-        hasChange: true,
+        hasChanged: true,
       };
     case "START_MOVE":
       return {
